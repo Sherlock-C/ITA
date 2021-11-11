@@ -6,8 +6,8 @@ ITA studies worker-task influence on task assignment, which considers the worker
 # Requirements
 
 * Python 3.6
-* Numpy (1.91.1)
-* Scikit-learn (0.19.1)
+* Numpy 1.91.1
+* gensim 3.8.0
 
 # Dataset
 
