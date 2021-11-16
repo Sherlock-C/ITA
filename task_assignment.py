@@ -184,7 +184,7 @@ def finish_worker():
     for w in worker:
         w.terminate()
 
-def sampling(epsoid, l):
+def sampling(epsoid, o):
     global graph, seed_size, worker, availableNode
     R = []
     LB = 1
@@ -196,7 +196,7 @@ def sampling(epsoid, l):
     for i in range(1, int(math.log2(n - 1)) + 1):
 
         x = n / (math.pow(2, i))
-        lambda_p = ((2 + 2 * epsoid_p / 3) * (logcnk(n, k) + l * math.log(n) + math.log(math.log2(n))) * n) / pow(
+        lambda_p = ((2 + 2 * epsoid_p / 3) * (logcnk(n, k) + o * math.log(n) + math.log(math.log2(n))) * n) / pow(
             epsoid_p, 2)
         theta = lambda_p / x
 
@@ -213,8 +213,8 @@ def sampling(epsoid, l):
             LB = n * f / (1 + epsoid_p)
             break
 
-    alpha = math.sqrt(l * math.log(n) + math.log(2))
-    beta = math.sqrt((1 - 1 / math.e) * (logcnk(n, k) + l * math.log(n) + math.log(2)))
+    alpha = math.sqrt(o * math.log(n) + math.log(2))
+    beta = math.sqrt((1 - 1 / math.e) * (logcnk(n, k) + o * math.log(n) + math.log(2)))
     lambda_aster = 2 * n * pow(((1 - 1 / math.e) * alpha + beta), 2) * pow(epsoid, -2)
     theta = lambda_aster / LB
     length_r = len(R)
@@ -305,11 +305,11 @@ def influence_calculation(R):
 
     return influence
 
-def rrpo(epsoid, l):
+def rrpo(epsoid, o):
 
     n = node_num
-    l = l * (1 + math.log(2) / math.log(n))
-    R = sampling(epsoid, l)
+    o = o * (1 + math.log(2) / math.log(n))
+    R = sampling(epsoid, o)
     return R
 
 def logcnk(n, k):
@@ -411,13 +411,13 @@ if __name__ == "__main__":
 
     worker = []
     epsoid = 0.1
-    l = 1
+    o = 1
 
     start1 = time.time()
 
     seed_size = 1
 
-    R = rrpo(epsoid, l)
+    R = rrpo(epsoid, o)
 
     R_inf = {}
 
